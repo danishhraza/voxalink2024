@@ -21,8 +21,8 @@ import { useAccount, useBalance } from "wagmi";
 export default function PreSaleCard() {
   //Loading bar constants
   const [currentPhaseIndex, setCurrentPhaseIndex] = useState(0);
-  const phaseStartDates = ["2023-12-20", "2024-02-06", "2024-03-08"]; // Array of phase start dates
-  const phaseEndDates = ["2024-02-05", "2024-03-07", "2024-03-28"]; // Array of phase end dates
+  const phaseStartDates = ["2024-02-05", "2024-03-08"]; // Array of phase start dates
+  const phaseEndDates = ["2024-03-07", "2024-03-28"]; // Array of phase end dates
   const [progress, setProgress] = useState(0);
 
   const { address, isConnected } = useAccount();
@@ -89,7 +89,8 @@ export default function PreSaleCard() {
   const [ETHPriceUSD, setETHPriceUSD] = useState("");
   const [tokensToReceive, setTokensToReceive] = useState("");
   const [ethToPay, setEthToPay] = useState("");
-
+  const [fundsRaised, setFundsRaised] = useState("");
+  const [isFundsRaisedLoading, setIsFundsRaisedLoading] = useState(true); // New state for loading status
   const [errorMessage, setErrorMessage] = useState("");
 
   const [transactionStatus, setTransactionStatus] = useState("idle"); // idle, loading, success
@@ -130,6 +131,28 @@ export default function PreSaleCard() {
     // ...
   }, []); // Add dependencies as needed
 
+  useEffect(() => {
+    // fetchUSDRaised when the component mounts
+    const fetchUSDRaised = async () => {
+      try {
+        const response = await fetch("https://api.voxalinkpro.io/api/funds");
+        const data = await response.json();
+        setFundsRaised(data);
+      } catch (error) {
+        console.error("Error fetching USD Raised", error);
+        setFundsRaised("Error");
+        setErrorMessage("Error fetching USD Raised");
+      } finally {
+        setIsFundsRaisedLoading(false);
+      }
+    };
+
+    fetchUSDRaised();
+
+    // Other existing useEffect code
+    // ...
+  }, []); // Add dependencies as needed
+
   const calculateEquivalent = (inputValue, inputType) => {
     let usdAmount, ethAmount, tokenAmount;
 
@@ -159,12 +182,46 @@ export default function PreSaleCard() {
     // Add a new state variable for ETH amount if needed
   };
 
-  const balance = useBalance({
-    address: "0x1579CbB942a94f439a8b81924d13069799572ac0",
-    formatUnits: "ether",
-  });
+  // useEffect(() => {
+  //   const fundsRaisedWei = async () => {
+  //     try {
+  //       setIsFundsRaisedLoading(true); // Set loading to true
 
-  console.log(balance);
+  //       const fundsRaised = await readContract({
+  //         address: contractAddress,
+  //         abi: abi,
+  //         functionName: "getFundsRaisedByPhase",
+  //       });
+
+  //       // Convert wei to ether
+  //       const fundsRaisedEther = Number(ethers.utils.formatEther(fundsRaised[0])) + 25;
+
+  //       console.log(fundsRaisedEther);
+
+  //       // Convert ether to USD
+  //       const ethPrice = parseFloat(ETHPriceUSD); // Convert string to number
+  //       const fundsRaisedUSD =
+  //         ethPrice > 0 ? Number(fundsRaisedEther * ethPrice) : 0;
+
+  //       setFundsRaised(fundsRaisedUSD.toFixed(2));
+  //     } catch (error) {
+  //       console.error("Error fetching token balance:", error);
+  //       setFundsRaised("Error");
+  //     } finally {
+  //       setIsFundsRaisedLoading(false); // Set loading to false in both success and error scenarios
+  //     }
+  //   };
+
+  //   // Parse ETHPriceUSD to float and check if it's greater than zero
+  //   if (ETHPriceUSD && parseFloat(ETHPriceUSD) > 0) {
+  //     fundsRaisedWei();
+  //   }
+  // }, [ETHPriceUSD]); // Ensure useEffect runs whenever ETHPriceUSD changes
+
+  // const balance = useBalance({
+  //   address: "0x1579CbB942a94f439a8b81924d13069799572ac0",
+  //   formatUnits: "ether",
+  // });
 
   const handleInputChange = (event) => {
     const value = event.target.value;
@@ -225,7 +282,6 @@ export default function PreSaleCard() {
         value: parseEther(stringEthToPay),
         onSuccess(data) {
           setTransactionStatus("success");
-          gtag_report_conversion();
           console.log("Transaction successful:", data);
           refetchTokenBalance(); // Refetch token balance after successful purchase
         },
@@ -268,10 +324,6 @@ export default function PreSaleCard() {
   //   }
   // }, [errorMessage]); // Dependency array with errorMessage
 
-  console.log("Token Balance:", tokenBalance);
-
-  console.log(address);
-
   return (
     <div className="bg-[#6664643f] p-8 rounded-xl backdrop-blur-lg shadow-xl w-full lg:w-[35rem] mx-auto mt-10 text-center">
       <h1 className="text-white text-2xl md:text-3xl font-bold mb-4">
@@ -305,11 +357,11 @@ export default function PreSaleCard() {
       </div> */}
       <div className="text-white text-md md:text-lg mb-4">
         USD Raised:{" "}
-        {balance?.data?.formatted &&
-          (parseFloat(balance.data.formatted) * ETHPriceUSD).toLocaleString(
-            "en-US",
-            { maximumFractionDigits: 2 }
-          )}
+        {isFundsRaisedLoading
+          ? "Loading..."
+          : fundsRaised === "Error"
+          ? "Error"
+          : fundsRaised}
       </div>
       <div className="text-white text-sm md:text-md  mb-4">
         Listing price: $0.095

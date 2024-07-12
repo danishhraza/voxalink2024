@@ -110,19 +110,6 @@ export default function Home() {
               {/* Larger social icons with hover effect */}
               <div className="flex items-center space-x-4">
                 <a
-                  href={twitterLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:scale-110 transition transform duration-300"
-                >
-                  <Image
-                    src="/Icons/x.svg"
-                    alt="Twitter"
-                    width={30}
-                    height={30}
-                  />
-                </a>
-                <a
                   href={telegramLink}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -149,19 +136,6 @@ export default function Home() {
                   />
                 </a>
                 <a
-                  href={linkedinLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:scale-110 transition transform duration-300"
-                >
-                  <Image
-                    src="/Icons/linkedin.svg"
-                    alt="Linkedin"
-                    width={30}
-                    height={30}
-                  />
-                </a>
-                <a
                   href={instagramLink}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -177,9 +151,9 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div ref={preSaleCardRef}>
+          {/* <div ref={preSaleCardRef}>
             <PreSaleCard />
-          </div>
+          </div> */}
         </div>
         <div className="relative">
           {/* Red Circle - hidden on screens smaller than md */}
@@ -232,36 +206,10 @@ export default function Home() {
           <div className="hidden md:block absolute w-[25rem] h-[25rem] opacity-60 bg-[#4752b6] rounded-full blur-[20rem] top-[50rem] leftt-0"></div>
         </div>
 
-        <div className="mb-[10rem]">
+        {/* <div className="mb-[10rem]">
           <ExchangePartner />
-        </div>
-
-        <div className="flex flex-col justify-center items-center text-center my-12">
-          <div className="p-8 md:p-20 rounded-2xl bg-[#333] bg-opacity-10 backdrop-blur-md flex flex-col justify-center items-center z-10 shadow-lg w-full max-w-6xl mx-auto relative overflow-hidden">
-            {/* Gradient overlay for a glossy effect */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#555] via-[#444] to-[#333] opacity-5"></div>
-            <h1 className="text-white text-2xl md:text-4xl font-bold relative">
-              Tokenomics
-            </h1>
-            <p className="text-gray-300 relative">
-              VoxaLink Pro is an ERC-20 token deployed on Ethereum mainnet. The
-              total supply of $VXLP tokens is 1 billion (1,000,000,000).
-            </p>
-            <div className="mt-10 w-full relative">
-              {isClient && (
-                <div
-                  className={`svg-container ${
-                    windowSize.width < 768 ? "small-svg-container" : ""
-                  }`}
-                  style={{ width: "100%", height: "auto" }}
-                >
-                  <Tokenomics />
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
+        </div> */}
+        {/* 
         <div id="roadmap">
           <div
             id="svgContainer"
@@ -269,11 +217,11 @@ export default function Home() {
           >
             <Roadmap />
           </div>
-        </div>
+        </div> */}
 
         {/* Buttons and Table */}
         {/* Buttons */}
-        <div className="mt-[10rem] mb-[10rem] mx-4">
+        {/* <div className="mt-[10rem] mb-[10rem] mx-4">
           <div className="flex flex-col items-center justify-center">
             <div className="flex flex-wrap justify-center gap-4">
               <button
@@ -299,8 +247,8 @@ export default function Home() {
             </div>
             <div className="w-full lg:w-[70%] mt-10">{renderTable()}</div>
           </div>
-        </div>
-        <div className="md:mt-[10rem] mt-[5-rem]">
+        </div> */}
+        {/* <div className="md:mt-[10rem] mt-[5-rem]">
           <h1 className="text-white font-bold text-4xl text-center mb-4">
             Press Release
           </h1>
@@ -308,7 +256,7 @@ export default function Home() {
             Latest articles and updates about VoxaLink Pro.
           </p>
           <PressReleaseCard data={PressData} />
-        </div>
+        </div> */}
         {/* Section where the ICO Token Contract card is located */}
         <div className="relative pb-[15rem] pt-[5rem] md:py-[15rem] flex justify-center items-center w-full">
           <div className="bg-black/20 backdrop-blur-sm p-8 md:p-20 rounded-2xl shadow-xl max-w-6xl mx-auto relative">

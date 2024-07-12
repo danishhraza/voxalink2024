@@ -89,13 +89,13 @@ const Navbar = () => {
           </div>
         </div>
         <div className="flex gap-6 lg:gap-6">
-          <ConnectKitButton />
-          <button
-            className="bg-[#7d4daf] hover:bg-[#513074] text-md hidden md:block text-white px-5 py-[0.1rem] md:py-[0.09rem] rounded-xl mr-4 h-10"
-            onClick={scrollToPreSaleCard}
+          {/* <ConnectKitButton /> */}
+          <Link
+            className="bg-[#7d4daf] content-center hover:bg-[#513074] text-md hidden md:block text-white px-5 py-[0.1rem] md:py-[0.09rem] rounded-xl mr-4 h-10"
+            href="/contact"
           >
             Buy $VXLP
-          </button>
+          </Link>
         </div>
       </div>
       <div

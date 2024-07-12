@@ -43,10 +43,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="https://www.academy.voxalinkpro.io/"
-                  target="_blank"
-                >
+                <Link href="https://www.voxalinkpro.com/" target="_blank">
                   Academy
                 </Link>
               </li>
@@ -82,13 +79,6 @@ export default function Footer() {
           {/* Social icons */}
           <div className="flex justify-center gap-4 mt-4">
             <a
-              href="https://twitter.com/VXLPOfficial"
-              className="hover:text-white transition-colors"
-              target="_blank"
-            >
-              <TwitterIcon />
-            </a>
-            <a
               href="https://t.me/voxalinkpro"
               className="hover:text-white transition-colors"
               target="_blank"
@@ -107,13 +97,6 @@ export default function Footer() {
                 height={25}
                 className="filter grayscale-[50%] hover:grayscale-0 transition-colors"
               />
-            </a>
-            <a
-              href="https://www.linkedin.com/company/voxalinkpro"
-              className="hover:text-white transition-colors"
-              target="_blank"
-            >
-              <LinkedInIcon />
             </a>
             <a
               href="https://www.instagram.com/voxalinkpro/"
